@@ -208,18 +208,16 @@ namespace X.Text
         }
 
         /// <summary>
-        /// 
+        /// Get keywords from text
         /// </summary>
         /// <param name="text"></param>
         /// <param name="count"></param>
         /// <returns></returns>
         public static string GetKeywords(string text, int count)
         {
-
             text = ToPlainText(text, true);
             text = Replace(text, SystemCharacters, String.Empty);
             text = text.Trim().ToLower();
-
 
             var keywords = text.Split(' ').ToList();
 
