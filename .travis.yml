@@ -1,3 +1,7 @@
 language: csharp
 solution: X.Text.sln
 sudo: false
+before_install:
+  - pip install codecov
+after_success:
+  - codecov
