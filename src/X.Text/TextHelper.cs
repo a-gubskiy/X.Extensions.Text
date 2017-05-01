@@ -145,7 +145,7 @@ namespace X.Text
         /// <returns></returns>
         public static string ToPlainText(string text)
         {
-            var patternCollection = new StringCollection
+            var patternCollection = new string[]
                                         {
                                             @"<!--(\w|\W)+?-->",
                                             @"<title>(\w|\W)+?</title>",
