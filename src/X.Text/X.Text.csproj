@@ -14,4 +14,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" PrivateAssets="All" Version="2023.3.0" />
+  </ItemGroup>
+
 </Project>
