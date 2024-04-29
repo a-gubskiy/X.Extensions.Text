@@ -1,151 +1,152 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
-namespace X.Text
+namespace X.Text;
+
+/// <summary>
+/// 
+/// </summary>
+[PublicAPI]
+public class Transliterator
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class Transliterator
+    private static readonly Dictionary<String, String> Cyrrilic;
+
+    static Transliterator()
     {
-        private static readonly Dictionary<String, String> _cyrrilic;
-
-        static Transliterator()
+        Cyrrilic = new Dictionary<string, string>
         {
-            _cyrrilic = new Dictionary<string, string>
-            {
 
-                {"щ", "shch"},
-                {"Щ", "Shch"},
+            {"щ", "shch"},
+            {"Щ", "Shch"},
 
-                {"ё", "yo"},
-                {"Ё", "Yo"},
+            {"ё", "yo"},
+            {"Ё", "Yo"},
 
-                {"є", "ye"},
+            {"є", "ye"},
                 
-                {"ж", "zh"},
-                {"Ж", "Zh"},
+            {"ж", "zh"},
+            {"Ж", "Zh"},
 
-                {"ї", "yi"},
-                {"Ї", "Yi"},
+            {"ї", "yi"},
+            {"Ї", "Yi"},
 
-                {"э", "e"},
-                {"Э", "E"},
+            {"э", "e"},
+            {"Э", "E"},
 
-                {"ч", "ch"},
-                {"Ч", "Ch"},
+            {"ч", "ch"},
+            {"Ч", "Ch"},
 
-                {"ш", "sh"},
-                {"Ш", "Sh"},
+            {"ш", "sh"},
+            {"Ш", "Sh"},
 
-                {"ц", "ts"},
-                {"Ц", "Ts"},
+            {"ц", "ts"},
+            {"Ц", "Ts"},
 
-                {"ю", "yu"},
-                {"Ю", "Yu"},
+            {"ю", "yu"},
+            {"Ю", "Yu"},
 
-                {"Я", "Ya"},
-                {"я", "ya"},
+            {"Я", "Ya"},
+            {"я", "ya"},
 
-                {"ъ", "__"},
-                {"Ъ", "__"},
+            {"ъ", "__"},
+            {"Ъ", "__"},
 
-                {"х", "kh"},
-                {"Х", "Kh"},
+            {"х", "kh"},
+            {"Х", "Kh"},
 
-                {"ь", "_"},
-                {"Ь", "_"},
+            {"ь", "_"},
+            {"Ь", "_"},
                 
-                {"б", "b"},
-                {"Б", "B"},
+            {"б", "b"},
+            {"Б", "B"},
 
-                {"в", "v"},
-                {"В", "V"},
+            {"в", "v"},
+            {"В", "V"},
 
-                {"г", "g"},
-                {"Г", "G"},
+            {"г", "g"},
+            {"Г", "G"},
 
-                {"ґ", "g"},
-                {"Ґ", "G"},
+            {"ґ", "g"},
+            {"Ґ", "G"},
 
-                {"д", "d"},
-                {"Д", "D"},
+            {"д", "d"},
+            {"Д", "D"},
 
-                {"е", "e"},
-                {"Е", "E"},
+            {"е", "e"},
+            {"Е", "E"},
                 
 
-                {"з", "z"},
-                {"З", "Z"},
+            {"з", "z"},
+            {"З", "Z"},
 
-                {"и", "i"},
-                {"И", "I"},
+            {"и", "i"},
+            {"И", "I"},
 
-                {"й", "y"},
-                {"Й", "Y"},
+            {"й", "y"},
+            {"Й", "Y"},
 
-                {"к", "k"},
-                {"К", "K"},
+            {"к", "k"},
+            {"К", "K"},
 
-                {"л", "l"},
-                {"Л", "L"},
+            {"л", "l"},
+            {"Л", "L"},
 
-                {"м", "m"},
-                {"М", "M"},
+            {"м", "m"},
+            {"М", "M"},
 
-                {"н", "n"},
-                {"Н", "N"},
+            {"н", "n"},
+            {"Н", "N"},
 
-                {"п", "p"},
-                {"П", "P"},
+            {"п", "p"},
+            {"П", "P"},
 
-                {"р", "r"},
-                {"Р", "R"},
+            {"р", "r"},
+            {"Р", "R"},
 
-                {"с", "s"},
-                {"С", "S"},
+            {"с", "s"},
+            {"С", "S"},
 
-                {"т", "t"},
-                {"Т", "T"},
+            {"т", "t"},
+            {"Т", "T"},
 
-                {"о", "o"},
-                {"О", "O"},
+            {"о", "o"},
+            {"О", "O"},
 
-                {"а", "a"},
-                {"А", "A"},
+            {"а", "a"},
+            {"А", "A"},
 
-                {"ф", "f"},
-                {"Ф", "F"},
+            {"ф", "f"},
+            {"Ф", "F"},
 
-                {"і", "i"},
-                {"І", "I"},
+            {"і", "i"},
+            {"І", "I"},
 
-                {"У", "U"},
-                {"у", "u"},
+            {"У", "U"},
+            {"у", "u"},
 
-                {"ы", "y"},
-                {"Ы", "Y"},
-            };
-        }
+            {"ы", "y"},
+            {"Ы", "Y"},
+        };
+    }
 
-        public static String FromTransliterationToCyrillic(string text)
+    public static string FromTransliterationToCyrillic(string text)
+    {
+        foreach (var item in Cyrrilic)
         {
-            foreach (var item in _cyrrilic)
-            {
-                text = text.Replace(item.Value, item.Key);
-            }
-
-            return text;
+            text = text.Replace(item.Value, item.Key);
         }
 
-        public static String FromCyrillicToTransliteration(string text)
+        return text;
+    }
+
+    public static string FromCyrillicToTransliteration(string text)
+    {
+        foreach (var item in Cyrrilic)
         {
-            foreach (var item in _cyrrilic)
-            {
-                text = text.Replace(item.Key, item.Value);
-            }
-
-            return text;
+            text = text.Replace(item.Key, item.Value);
         }
+
+        return text;
     }
 }
