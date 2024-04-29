@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 
 namespace X.Text;
 
 /// <summary>
-/// Сlass to simplify common tasks working with text
+/// Class contains methods to simplify common tasks working with text
 /// </summary>
+[PublicAPI]
 public static class TextHelper
 {
     /// <summary>
@@ -87,12 +89,12 @@ public static class TextHelper
     /// 
     /// </summary>
     /// <param name="text"></param>
-    /// <param name="forRepalce"></param>
+    /// <param name="forReplace"></param>
     /// <param name="whichReplace"></param>
     /// <returns></returns>
-    public static string Replace(String text, IEnumerable<String> forRepalce, String whichReplace)
+    public static string Replace(string text, IEnumerable<string> forReplace, string whichReplace)
     {
-        return forRepalce.Aggregate(text, (current, x) => current.Replace(x, whichReplace));
+        return forReplace.Aggregate(text, (current, x) => current.Replace(x, whichReplace));
     }
 
     /// <summary>
@@ -144,7 +146,7 @@ public static class TextHelper
     /// <returns></returns>
     public static string ToPlainText(string text)
     {
-        var patternCollection = new string[]
+        var patternCollection = new[]
         {
             @"<!--(\w|\W)+?-->",
             @"<title>(\w|\W)+?</title>",
@@ -227,7 +229,7 @@ public static class TextHelper
         var uniqueKeywords = keywords.Distinct().ToList();
 
         var uniqueKeywordsDicitonary = uniqueKeywords.ToDictionary(uniqueKeyword => uniqueKeyword,
-            uniqueKeyword => keywords.Where(keyword => keyword == uniqueKeyword).Count());
+            uniqueKeyword => keywords.Count(keyword => keyword == uniqueKeyword));
 
         var topKeywords = (from uk in uniqueKeywordsDicitonary
             orderby uk.Value descending
@@ -236,9 +238,7 @@ public static class TextHelper
         keywords = topKeywords.Select(x => x.Key).ToList();
 
         var result = String.Join(", ", keywords);
-
-
+        
         return result;
     }
-
 }

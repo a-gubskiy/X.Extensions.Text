@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace X.Text;
 
 /// <summary>
 /// 
 /// </summary>
+[PublicAPI]
 public class Transliterator
 {
-    private static readonly Dictionary<String, String> _cyrrilic;
+    private static readonly Dictionary<String, String> Cyrrilic;
 
     static Transliterator()
     {
-        _cyrrilic = new Dictionary<string, string>
+        Cyrrilic = new Dictionary<string, string>
         {
 
             {"щ", "shch"},
@@ -128,9 +130,9 @@ public class Transliterator
         };
     }
 
-    public static String FromTransliterationToCyrillic(string text)
+    public static string FromTransliterationToCyrillic(string text)
     {
-        foreach (var item in _cyrrilic)
+        foreach (var item in Cyrrilic)
         {
             text = text.Replace(item.Value, item.Key);
         }
@@ -138,9 +140,9 @@ public class Transliterator
         return text;
     }
 
-    public static String FromCyrillicToTransliteration(string text)
+    public static string FromCyrillicToTransliteration(string text)
     {
-        foreach (var item in _cyrrilic)
+        foreach (var item in Cyrrilic)
         {
             text = text.Replace(item.Key, item.Value);
         }
