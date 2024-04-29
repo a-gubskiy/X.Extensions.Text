@@ -16,28 +16,23 @@ public static class TextHelper
     /// <summary>
     /// 
     /// </summary>
-    public static IEnumerable<String> SystemCharacters { get; set; }
-
-    static TextHelper()
+    public static IReadOnlyCollection<string> SystemCharacters = new[]
     {
-        SystemCharacters = new[]
-        {
-            "&", "?", "^", ":", "/", "\\", "@", "$", "(", ")", "+", "[",
-            "]", "{", "}", "%", "~", ">", "<", "=", "*", "“", "\"", "!",
-            "”", "«", "»", ".", ",", "#", "§", "quot;", "--", ";", "\r", "\n", "\t",
-            "..."
-        };
-    }
+        "&", "?", "^", ":", "/", "\\", "@", "$", "(", ")", "+", "[",
+        "]", "{", "}", "%", "~", ">", "<", "=", "*", "“", "\"", "!",
+        "”", "«", "»", ".", ",", "#", "§", "quot;", "--", ";", "\r", "\n", "\t",
+        "..."
+    };
 
     /// <summary>
     /// Retrieves a substring from this instance. The substring starts at a first character position.
     /// </summary>
     /// <param name="text">Text</param>
-    /// <param name="length">legth of new text</param>
+    /// <param name="length">Length of new text</param>
     /// <returns></returns>
     public static string Substring(string text, int length)
     {
-        return Substring(text, length, String.Empty);
+        return Substring(text, length, string.Empty);
     }
 
     /// <summary>
@@ -45,7 +40,7 @@ public static class TextHelper
     /// </summary>
     /// <param name="text"></param>
     /// <param name="length"></param>
-    /// <param name="endPart">Text for replce cutted text. For example: 'This is long long te...'</param>
+    /// <param name="endPart">Text for replace removed text. For example: 'This is long long te...'</param>
     /// <returns></returns>
     public static string Substring(string text, int length, string endPart)
     {
@@ -65,24 +60,24 @@ public static class TextHelper
     /// <summary>
     /// Clean system characters
     /// </summary>
-    /// <param name="title"></param>
+    /// <param name="text"></param>
     /// <returns></returns>
-    public static string CleanCharacters(string title)
+    public static string CleanCharacters(string text)
     {
         const string space = " ";
 
-        var x = Replace(title, SystemCharacters, space);
+        var result = Replace(text, SystemCharacters, space);
 
         var doubleSpace = String.Format("{0}{0}", space);
 
-        while (x.Contains(doubleSpace))
+        while (result.Contains(doubleSpace))
         {
-            x = x.Replace(doubleSpace, space).Trim();
+            result = result.Replace(doubleSpace, space).Trim();
         }
 
-        x = x.Trim().ToLower().Replace(space, "-");
+        result = result.Trim().ToLower().Replace(space, "-");
 
-        return x;
+        return result;
     }
 
     /// <summary>
@@ -98,7 +93,7 @@ public static class TextHelper
     }
 
     /// <summary>
-    /// 
+    /// Convert HTML to plain text
     /// </summary>
     /// <param name="text"></param>
     /// <param name="saveHtmlLineBreaks"></param>
@@ -136,13 +131,14 @@ public static class TextHelper
         text = ToPlainText(text);
 
         text = text.Replace(lineBreake, "<br />");
+        
         return text;
     }
 
     /// <summary>
-    /// 
+    /// Convert HTML to plain text
     /// </summary>
-    /// <param name="text"></param>
+    /// <param name="text">Input string</param>
     /// <returns></returns>
     public static string ToPlainText(string text)
     {
@@ -160,27 +156,27 @@ public static class TextHelper
 
         var sb = new StringBuilder(text);
 
-        Regex regEx;
+        Regex regex;
 
         foreach (var pattern in patternCollection)
         {
-            regEx = new Regex(pattern, RegexOptions.IgnoreCase);
-            sb = new StringBuilder(regEx.Replace(sb.ToString(), String.Empty));
+            regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            sb = new StringBuilder(regex.Replace(sb.ToString(), String.Empty));
         }
 
-        regEx = new Regex("<[^>]*>", RegexOptions.IgnoreCase);
+        regex = new Regex("<[^>]*>", RegexOptions.IgnoreCase);
 
-        sb = new StringBuilder(regEx.Replace(sb.ToString(), String.Empty));
+        sb = new StringBuilder(regex.Replace(sb.ToString(), String.Empty));
 
-        regEx = new Regex("{[^}]*}", RegexOptions.IgnoreCase);
-        sb = new StringBuilder(regEx.Replace(sb.ToString(), String.Empty));
+        regex = new Regex("{[^}]*}", RegexOptions.IgnoreCase);
+        sb = new StringBuilder(regex.Replace(sb.ToString(), String.Empty));
 
 
-        regEx = new Regex("[<]", RegexOptions.IgnoreCase);
-        sb = new StringBuilder(regEx.Replace(sb.ToString(), "<"));
+        regex = new Regex("[<]", RegexOptions.IgnoreCase);
+        sb = new StringBuilder(regex.Replace(sb.ToString(), "<"));
 
-        regEx = new Regex("[>]", RegexOptions.IgnoreCase);
-        sb = new StringBuilder(regEx.Replace(sb.ToString(), ">"));
+        regex = new Regex("[>]", RegexOptions.IgnoreCase);
+        sb = new StringBuilder(regex.Replace(sb.ToString(), ">"));
 
         //Special symbols
         var symbolsForReplace = new[] { "&", "/", "\\", "&", "?", "=", "quot;", "nbsp;", "rsquo;", "ndash;", "<", ">" };
@@ -237,7 +233,7 @@ public static class TextHelper
 
         keywords = topKeywords.Select(x => x.Key).ToList();
 
-        var result = String.Join(", ", keywords);
+        var result = string.Join(", ", keywords);
         
         return result;
     }
