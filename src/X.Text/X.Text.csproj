@@ -10,6 +10,8 @@
     <Description>Library to simplify common tasks when working with text.</Description>
     <PackageIconUrl>https://ru.gravatar.com/userimage/8071071/f2dc08ee7e4016451f64a7ae9cffd110.png?size=200</PackageIconUrl>
     <RepositoryUrl>https://github.com/ernado-x/X.Text.git</RepositoryUrl>
+    <LangVersion>default</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
 </Project>
