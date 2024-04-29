@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;net452</TargetFrameworks>
+    <TargetFramework>netstandard1.3</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Company>.NET Core Ukrainian User Group</Company>
     <Authors>Andrew Gubskiy</Authors>
-    <Version>2.0.0</Version>
+    <Version>3.0.0</Version>
     <PackageProjectUrl>https://github.com/ernado-x/X.Text</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <Description>Library to simplify common tasks when working with text.</Description>
