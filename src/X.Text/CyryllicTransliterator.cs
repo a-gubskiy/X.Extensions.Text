@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 namespace X.Text;
 
 /// <summary>
-/// 
+/// Allows to transliterate text from cyrillic to latin and vice versa
 /// </summary>
 [PublicAPI]
 public class CyrillicTransliterator : ITransliterator

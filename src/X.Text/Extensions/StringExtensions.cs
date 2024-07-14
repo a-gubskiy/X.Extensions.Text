@@ -3,6 +3,9 @@ using JetBrains.Annotations;
 
 namespace X.Text.Extensions;
 
+/// <summary>
+/// Set of extension methods for string
+/// </summary>
 [PublicAPI]
 public static class StringExtensions
 {

@@ -2,6 +2,9 @@ using JetBrains.Annotations;
 
 namespace X.Text;
 
+/// <summary>
+/// Allows to transliterate text from one alphabet to another
+/// </summary>
 [PublicAPI]
 public interface ITransliterator
 {
