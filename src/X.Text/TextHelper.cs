@@ -136,7 +136,7 @@ public static class TextHelper
     }
 
     /// <summary>
-    /// Convert HTML to plain text
+    /// Try to convert HTML to plain text
     /// </summary>
     /// <param name="text">Input string</param>
     /// <returns></returns>

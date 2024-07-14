@@ -10,7 +10,7 @@ namespace X.Text;
 [PublicAPI]
 public class Transliterator
 {
-    private static readonly Dictionary<String, String> Cyrrilic;
+    private static readonly Dictionary<string, string> Cyrrilic;
 
     static Transliterator()
     {
