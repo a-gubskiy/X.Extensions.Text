@@ -1,3 +1,5 @@
+using X.Extensions.Text.Transliteration;
+
 namespace X.Extensions.Text.Tests;
 
 public class CyrillicTransliteratorTests
