@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\X.Text\X.Text.csproj" />
+      <ProjectReference Include="..\src\X.Extensions.Text\X.Extensions.Text.csproj" />
     </ItemGroup>
 
 </Project>

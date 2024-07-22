@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace X.Text;
+namespace X.Extensions.Text;
 
 /// <summary>
 /// Allows to transliterate text from cyrillic to latin and vice versa

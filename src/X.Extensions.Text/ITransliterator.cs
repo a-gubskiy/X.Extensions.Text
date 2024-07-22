@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace X.Text;
+namespace X.Extensions.Text;
 
 /// <summary>
 /// Allows to transliterate text from one alphabet to another

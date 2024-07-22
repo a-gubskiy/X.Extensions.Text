@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
-namespace X.Text;
+namespace X.Extensions.Text;
 
 /// <summary>
 /// Class contains methods to simplify common tasks working with text

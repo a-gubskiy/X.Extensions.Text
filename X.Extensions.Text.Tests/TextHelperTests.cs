@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using Xunit;
-
-namespace X.Text.Tests;
+namespace X.Extensions.Text.Tests;
 
 public class TextHelperTests
 {

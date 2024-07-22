@@ -1,6 +1,4 @@
-using Xunit;
-
-namespace X.Text.Tests;
+namespace X.Extensions.Text.Tests;
 
 public class CyrillicTransliteratorTests
 {

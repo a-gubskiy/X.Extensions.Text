@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace X.Text.Extensions;
+namespace X.Extensions.Text.Extensions;
 
 /// <summary>
 /// Set of extension methods for string

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Title>X.Text</Title>
+        <Title>X.Extensions.Text</Title>
         <Description>A library designed to streamline the handling of common text-related tasks.</Description>
 
         <RepositoryType>git</RepositoryType>
@@ -33,8 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" PrivateAssets="all">
-        </PackageReference>
+        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" PrivateAssets="all"/>
     </ItemGroup>
 
 </Project>
