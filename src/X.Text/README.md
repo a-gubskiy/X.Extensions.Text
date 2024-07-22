@@ -1,10 +1,10 @@
-# X.Extensions.Text
+# X.Text
 
 ## Overview
-The `X.Extensions.Text` library provides a set of utility classes designed to simplify common text processing tasks in .NET applications. It is ideal for developers looking to handle string manipulations, such as substring extraction, character cleaning, plain text conversion from HTML, and keyword extraction efficiently.
+The `X.Text` library provides a set of utility classes designed to simplify common text processing tasks in .NET applications. It is ideal for developers looking to handle string manipulations, such as substring extraction, character cleaning, plain text conversion from HTML, and keyword extraction efficiently.
 
 ## Installation
-To use the `X.Extensions.Text` library in your project, include it as a dependency in your .NET project. You can install it from [NuGet](https://www.nuget.org/packages/X.Extensions.Text).
+To use the `X.Text` library in your project, include it as a dependency in your .NET project. You can install it from [NuGet](https://www.nuget.org/packages/X.Text/3.0.0#readme-body-tab).
 
 ## Usage
 
@@ -29,7 +29,7 @@ Extension methods for the `System.String` class leveraging the `TextHelper` util
 
 ## Examples
 ```csharp
-using X.Extensions.Text;
+using X.Text.Extensions;
 
 string exampleHtml = "<p>Hello World!</p>";
 string plainText = exampleHtml.ToPlainText();
@@ -44,7 +44,7 @@ Console.WriteLine(keywords); // Example output based on text content.
 ```
 
 ## Contributing
-Contributions to the `X.Extensions.Text` library are welcome. Please ensure to follow the contributing guidelines specified in the repository for submitting issues, feature requests, or pull requests.
+Contributions to the `X.Text` library are welcome. Please ensure to follow the contributing guidelines specified in the repository for submitting issues, feature requests, or pull requests.
 
 ## License
-The `X.Extensions.Text` library is released under [MIT license](https://raw.githubusercontent.com/ernado-x/X.Text/master/LICENSE).
+The `X.Text` library is released under [MIT license](https://raw.githubusercontent.com/ernado-x/X.Text/master/LICENSE).
