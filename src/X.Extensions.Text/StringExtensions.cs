@@ -47,12 +47,12 @@ public static class StringExtensions
     /// Replace multiple strings in text with single string
     /// </summary>
     /// <param name="text"></param>
-    /// <param name="forReplace"></param>
-    /// <param name="whichReplace"></param>
+    /// <param name="targets"></param>
+    /// <param name="replacement"></param>
     /// <returns></returns>
-    public static string Replace(this string text, IEnumerable<string> forReplace, string whichReplace)
+    public static string Replace(this string text, IEnumerable<string> targets, string replacement)
     {
-        return TextHelper.Replace(text, forReplace, whichReplace);
+        return TextHelper.Replace(text, targets, replacement);
     }
 
     /// <summary>

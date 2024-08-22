@@ -16,7 +16,7 @@ public static class TextHelper
     /// <summary>
     /// 
     /// </summary>
-    public static IReadOnlyCollection<string> SystemCharacters = new[]
+    public static readonly IReadOnlyCollection<string> SystemCharacters = new[]
     {
         "&", "?", "^", ":", "/", "\\", "@", "$", "(", ")", "+", "[",
         "]", "{", "}", "%", "~", ">", "<", "=", "*", "“", "\"", "!",
@@ -44,9 +44,9 @@ public static class TextHelper
     /// <returns></returns>
     public static string Substring(string text, int length, string endPart)
     {
-        if (String.IsNullOrEmpty(text))
+        if (string.IsNullOrEmpty(text))
         {
-            return String.Empty;
+            return string.Empty;
         }
 
         if (text.Length > length)
@@ -68,7 +68,7 @@ public static class TextHelper
 
         var result = Replace(text, SystemCharacters, space);
 
-        var doubleSpace = String.Format("{0}{0}", space);
+        var doubleSpace = string.Format("{0}{0}", space);
 
         while (result.Contains(doubleSpace))
         {
@@ -81,15 +81,15 @@ public static class TextHelper
     }
 
     /// <summary>
-    /// 
+    /// Replaces all occurrences of the specified target strings in the input text with the provided replacement string.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="forReplace"></param>
-    /// <param name="whichReplace"></param>
-    /// <returns></returns>
-    public static string Replace(string text, IEnumerable<string> forReplace, string whichReplace)
+    /// <param name="text">The input string in which replacements will be made.</param>
+    /// <param name="targets">An enumerable collection of strings to be replaced.</param>
+    /// <param name="replacement">The string that will replace each target string.</param>
+    /// <returns>The modified string with all specified targets replaced by the replacement string.</returns>
+    public static string Replace(string text, IEnumerable<string> targets, string replacement)
     {
-        return forReplace.Aggregate(text, (current, x) => current.Replace(x, whichReplace));
+        return targets.Aggregate(text, (current, x) => current.Replace(x, replacement));
     }
 
     /// <summary>
@@ -134,6 +134,12 @@ public static class TextHelper
         return text.Replace(lineBreakPlaceholder, "<br />");
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="lineBreakPlaceholder"></param>
+    /// <returns></returns>
     public static string TrimLineBreaksFromStart(string text, string lineBreakPlaceholder = "[[LINE_BREAK]]")
     {
         if (string.IsNullOrEmpty(text))
@@ -148,8 +154,6 @@ public static class TextHelper
 
         return text;
     }
-
-
 
     /// <summary>
     /// Try to convert HTML to plain text
