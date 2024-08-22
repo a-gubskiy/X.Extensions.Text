@@ -4,30 +4,17 @@
         <Title>X.Extensions.Text</Title>
         <Description>A library designed to streamline the handling of common text-related tasks.</Description>
 
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/ernado-x/X.Text.git</RepositoryUrl>
-
-        <Authors>Andrew Gubskiy</Authors>
-        <Company>Ukrainian .NET Developer Community</Company>
-
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageTags>Text Transliteration Strings String Cyrillic</PackageTags>        
-        <PackageProjectUrl>https://github.com/ernado-x/X.Text</PackageProjectUrl>
-        <Copyright>Andrew Gubskiy © 2024</Copyright>
-        <PackageVersion>3.3.0</PackageVersion>
+        <PackageIcon>x-extensions.png</PackageIcon>
+        <PackageTags>Text Transliteration Strings String Cyrillic</PackageTags>
 
-        <Version>3.3.0</Version>
-        <AssemblyVersion>3.3.0</AssemblyVersion>
-        <FileVersion>3.3.0</FileVersion>
         <LangVersion>default</LangVersion>
         <TargetFrameworks>net6.0;net8.0;netstandard1.3;netstandard2.1;netstandard2.0</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="icon.png" Pack="True" PackagePath=""/>
+        <None Include="../../x-extensions.png" Pack="true" PackagePath=""/>
     </ItemGroup>
 
     <ItemGroup>
@@ -36,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" PrivateAssets="all" />
+        <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" PrivateAssets="all"/>
     </ItemGroup>
 
 </Project>

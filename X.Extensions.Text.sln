@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5009ECEE-3F70-4AE1-85A5-CB88E1C48A16}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X.Extensions.Text", "src\X.Extensions.Text\X.Extensions.Text.csproj", "{0BC1FFCF-4BCC-4BC5-B7D8-3B1CA74F48CB}"
 EndProject
