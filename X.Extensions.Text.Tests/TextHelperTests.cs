@@ -9,6 +9,7 @@ public class TextHelperTests
     public void Substring_WithEndPart_ReturnsCorrectSubstring(string input, int length, string endPart, string expected)
     {
         var result = TextHelper.Substring(input, length, endPart);
+        
         Assert.Equal(expected, result);
     }
 
@@ -18,6 +19,7 @@ public class TextHelperTests
         var input = "Hello & World!";
         var expected = "hello-world";
         var result = TextHelper.CleanCharacters(input);
+        
         Assert.Equal(expected, result);
     }
 
@@ -27,6 +29,7 @@ public class TextHelperTests
         var input = "";
         var expected = "";
         var result = TextHelper.CleanCharacters(input);
+        
         Assert.Equal(expected, result);
     }
 
@@ -38,6 +41,7 @@ public class TextHelperTests
         var whichReplace = "";
         var expected = "Hello  World";
         var result = TextHelper.Replace(input, forReplace, whichReplace);
+        
         Assert.Equal(expected, result);
     }
 
@@ -48,6 +52,9 @@ public class TextHelperTests
     public void ToPlainText_ConvertsHtmlToPlainText(string input, string expected)
     {
         var result = TextHelper.ToPlainText(input);
+        
         Assert.Equal(expected, result);
     }
+    
+    
 }

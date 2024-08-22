@@ -96,11 +96,11 @@ public static class TextHelper
     /// Convert HTML to plain text
     /// </summary>
     /// <param name="text"></param>
-    /// <param name="saveHtmlLineBreaks"></param>
+    /// <param name="preserveLineBreaks"></param>
     /// <returns></returns>
-    public static string ToPlainText(string text, bool saveHtmlLineBreaks)
+    public static string ToPlainText(string text, bool preserveLineBreaks)
     {
-        if (!saveHtmlLineBreaks)
+        if (!preserveLineBreaks)
         {
             return ToPlainText(text);
         }
