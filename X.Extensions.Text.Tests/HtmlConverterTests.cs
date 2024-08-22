@@ -6,11 +6,12 @@ namespace X.Extensions.Text.Tests;
 public class HtmlConverterTests
 {
     [Theory]
-    [InlineData("<br>This is a test", "This is a test<br />")]
+    [InlineData("<br>This is a test", "This is a test")]
     [InlineData("<p>This is a test</p>", "This is a test<br />")]
     [InlineData("<P>This is a test</P>", "This is a test<br />")]
-    [InlineData("Hello<br>World", "Hello<br />World<br />")]
-    [InlineData("Hello<br/><br/>World", "Hello<br />World<br />")]
+    [InlineData("Hello<br>World", "Hello<br />World")]
+    [InlineData("Hello<br/><br/>World", "Hello<br />World")]
+    [InlineData("<p>Hello<br/><br/>World", "Hello<br />World")]
     public void ToPlainText_WithPreserveLineBreaks_ShouldConvertHtmlToPlainText_WithLineBreaks(string input, string expected)
     {
         // Act

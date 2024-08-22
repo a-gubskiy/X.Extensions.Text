@@ -93,11 +93,11 @@ public static class TextHelper
     }
 
     /// <summary>
-    /// Convert HTML to plain text
+    /// Convert HTML to plain text.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="preserveLineBreaks"></param>
-    /// <returns></returns>
+    /// <param name="text">The HTML content to be converted.</param>
+    /// <param name="preserveLineBreaks">Flag to indicate if HTML line breaks should be preserved.</param>
+    /// <returns>The plain text version of the input HTML.</returns>
     public static string ToPlainText(string text, bool preserveLineBreaks)
     {
         if (!preserveLineBreaks)
@@ -105,35 +105,51 @@ public static class TextHelper
             return ToPlainText(text);
         }
 
-        const string lineBreake = "LLineB77Breake";
-        const string doubleLineBreake = lineBreake + lineBreake;
+        const string lineBreakPlaceholder = "[[LINE_BREAK]]";
 
-        text = text
-            .Replace("<br>", lineBreake)
-            .Replace("<br/>", lineBreake)
-            .Replace("<br />", lineBreake)
-            .Replace("<BR>", lineBreake)
-            .Replace("<BR/>", lineBreake)
-            .Replace("<BR />", lineBreake)
-            .Replace("<P>", lineBreake)
-            .Replace("<P/>", lineBreake)
-            .Replace("<P />", lineBreake)
-            .Replace("</P>", lineBreake)
-            .Replace("<p>", lineBreake)
-            .Replace("<p/>", lineBreake)
-            .Replace("<p />", lineBreake);
-
-        while (text.Contains(doubleLineBreake))
+        var lineBreakTags = new[]
         {
-            text = text.Replace(doubleLineBreake, lineBreake);
+            "<br>", "<br/>", "<br />", "<BR>", "<BR/>", "<BR />",
+            "<P>", "<P/>", "<P />", "</P>", "<p>", "<p/>", "<p />"
+        };
+
+        // Replace all line break tags with the placeholder
+        foreach (var tag in lineBreakTags)
+        {
+            text = Regex.Replace(text, tag, lineBreakPlaceholder, RegexOptions.IgnoreCase);
         }
 
+        // Collapse consecutive placeholders to a single one
+        while (text.Contains($"{lineBreakPlaceholder}{lineBreakPlaceholder}"))
+        {
+            text = text.Replace($"{lineBreakPlaceholder}{lineBreakPlaceholder}", $"{lineBreakPlaceholder}");
+        }
+
+        text = TrimLineBreaksFromStart(text, lineBreakPlaceholder);
+        
+        // Convert the HTML to plain text
         text = ToPlainText(text);
 
-        text = text.Replace(lineBreake, "<br />");
-        
+        // Replace placeholders back with <br /> tags
+        return text.Replace(lineBreakPlaceholder, "<br />");
+    }
+    
+    public static string TrimLineBreaksFromStart(string text, string lineBreakPlaceholder = "[[LINE_BREAK]]")
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return text;
+        }
+
+        while (text.StartsWith(lineBreakPlaceholder))
+        {
+            text = text.Substring(lineBreakPlaceholder.Length);
+        }
+
         return text;
     }
+
+
 
     /// <summary>
     /// Try to convert HTML to plain text
