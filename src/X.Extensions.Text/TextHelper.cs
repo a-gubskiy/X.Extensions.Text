@@ -40,7 +40,7 @@ public static class TextHelper
     /// </summary>
     /// <param name="text"></param>
     /// <param name="length"></param>
-    /// <param name="endPart">Text for replace removed text. For example: 'This is long long te...'</param>
+    /// <param name="endPart">Text for replace removed text. For example: 'This is long-long te...'</param>
     /// <returns></returns>
     public static string Substring(string text, int length, string endPart)
     {
@@ -256,5 +256,30 @@ public static class TextHelper
         var result = string.Join(", ", keywords);
         
         return result;
+    }
+    
+    /// <summary>
+    /// Cut the text to the specified length, preserving the logical block
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="maxLength"></param>
+    /// <returns></returns>
+    public static string CutText(string text, int maxLength = 200)
+    {
+        if (text.Length <= maxLength)
+        {
+            return text;
+        }
+
+        // Find the first dot before the maxLength
+        var dotIndex = text.LastIndexOf('.', maxLength);
+
+        if (dotIndex != -1)
+        {
+            return text.Substring(0, dotIndex + 1); // Include the dot to keep a logical block
+        }
+
+        // If no suitable dot is found, return up to maxLength
+        return text.Substring(0, maxLength) + "...";
     }
 }
