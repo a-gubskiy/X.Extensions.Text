@@ -1,47 +1,135 @@
 # X.Extensions.Text
 
-## Overview
-The `X.Extensions.Text` library provides a set of utility classes designed to simplify common text processing tasks in .NET applications. It is ideal for developers looking to handle string manipulations, such as substring extraction, character cleaning, plain text conversion from HTML, and keyword extraction efficiently.
+The `TextHelper` class provides utility methods for common text manipulation tasks such as cleaning, substringing, replacing characters, and extracting keywords. 
+
+This library is designed to simplify text processing in .NET applications.
 
 ## Installation
-To use the `X.Extensions.Text` library in your project, include it as a dependency in your .NET project. You can install it from [NuGet](https://www.nuget.org/packages/X.Extensions.Text).
 
-## Usage
+Include the `X.Extensions.Text` namespace in your project to use the `TextHelper` class.
 
-### `TextHelper`
-Static methods contained within this class provide functionality for text manipulation without the need to instantiate any object.
-
-**Features:**
-- **Substring Extraction**: Get a substring from a text string optionally ending with a specified string if the text exceeds a certain length.
-- **Character Cleaning**: Remove or replace system characters and excessive spaces from a text string.
-- **HTML to Plain Text Conversion**: Convert HTML content to plain text, with options to preserve HTML line breaks.
-- **Keyword Extraction**: Extract the most frequent keywords from a string, useful for generating metadata or summaries.
-
-### `StringExtensions`
-Extension methods for the `System.String` class leveraging the `TextHelper` utilities to extend string functionalities directly on string objects.
-
-**Methods:**
-- `Substring(this string text, int length, string endPart)`: Extension method to extract a substring.
-- `CleanCharacters(this string text)`: Clean system-defined characters from the string.
-- `Replace(this string text, IEnumerable<string> forReplace, string whichReplace)`: Replace specified substrings.
-- `ToPlainText(this string text, bool saveHtmlLineBreaks)`: Convert HTML formatted string to plain text.
-- `GetKeywords(this string text, int count)`: Extract keywords from text.
-
-## Examples
 ```csharp
 using X.Extensions.Text;
-
-string exampleHtml = "<p>Hello World!</p>";
-string plainText = exampleHtml.ToPlainText();
-Console.WriteLine(plainText); // Outputs: Hello World!
-
-string longText = "This is a very long piece of text that needs to be shortened.";
-string shortText = longText.Substring(20, "...");
-Console.WriteLine(shortText); // Outputs: This is a very long...
-
-string keywords = longText.GetKeywords(5);
-Console.WriteLine(keywords); // Example output based on text content.
 ```
+
+## Methods
+
+### Substring(string text, int length)
+
+Retrieves a substring starting from the beginning of the given text, limited to the specified length.
+
+#### Example
+```csharp
+string text = "This is a long text.";
+string result = TextHelper.Substring(text, 10);
+Console.WriteLine(result); // Output: "This is a "
+```
+
+---
+
+### Substring(string text, int length, string endPart)
+
+Retrieves a substring with the option to append a custom ending (e.g., "...") if the text is truncated.
+
+#### Example
+```csharp
+string text = "This is a long text.";
+string result = TextHelper.Substring(text, 10, "...");
+Console.WriteLine(result); // Output: "This is..."
+```
+
+---
+
+### CleanCharacters(string text)
+
+Cleans system characters and replaces them with hyphens. Ensures no double spaces and trims the result.
+
+#### Example
+```csharp
+string text = "Hello, world! This is a test.";
+string result = TextHelper.CleanCharacters(text);
+Console.WriteLine(result); // Output: "hello-world-this-is-a-test"
+```
+
+---
+
+### Replace(string text, IEnumerable<string> targets, string replacement)
+
+Replaces all occurrences of the specified target strings in the input text with the replacement string.
+
+#### Example
+```csharp
+string text = "Hello, world!";
+string result = TextHelper.Replace(text, new[] { "Hello", "world" }, "Hi");
+Console.WriteLine(result); // Output: "Hi, Hi!"
+```
+
+---
+
+### ToPlainText(string text)
+
+Converts HTML to plain text by removing tags and special symbols.
+
+#### Example
+```csharp
+string html = "<p>This is <b>HTML</b>.</p>";
+string result = TextHelper.ToPlainText(html);
+Console.WriteLine(result); // Output: "This is HTML."
+```
+
+---
+
+### ToPlainText(string text, bool preserveLineBreaks)
+
+Converts HTML to plain text, preserving line breaks if specified.
+
+#### Example
+```csharp
+string html = "<p>This is a line.<br/>Another line.</p>";
+string result = TextHelper.ToPlainText(html, true);
+Console.WriteLine(result); // Output: "This is a line.<br />Another line."
+```
+
+---
+
+### GetKeywords(string text, int count)
+
+Extracts the top unique keywords from the text, ordered by frequency.
+
+#### Example
+```csharp
+string text = "This is a sample text. Sample text is important.";
+string keywords = TextHelper.GetKeywords(text, 3);
+Console.WriteLine(keywords); // Output: "sample, text, important"
+```
+
+---
+
+### CutText(string text, int maxLength = 200)
+
+Cuts the text to the specified length, attempting to preserve logical blocks by stopping at the nearest sentence-ending dot.
+
+#### Example
+```csharp
+string text = "This is a long text. It has multiple sentences.";
+string result = TextHelper.CutText(text, 20);
+Console.WriteLine(result); // Output: "This is a long text."
+```
+
+---
+
+### TrimLineBreaksFromStart(string text, string lineBreakPlaceholder)
+
+Removes line break placeholders from the beginning of the text.
+
+#### Example
+```csharp
+string text = "[[LINE_BREAK]][[LINE_BREAK]]Hello!";
+string result = TextHelper.TrimLineBreaksFromStart(text);
+Console.WriteLine(result); // Output: "Hello!"
+```
+
+---
 
 ## Contributing
 Contributions to the `X.Extensions.Text` library are welcome. Please ensure to follow the contributing guidelines specified in the repository for submitting issues, feature requests, or pull requests.
