@@ -1,5 +1,9 @@
 # X.Extensions.Text
 
+[![NuGet Version](http://img.shields.io/nuget/v/X.Extensions.Text.svg?style=flat)](https://www.nuget.org/packages/X.Extensions.Text/)
+[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/andrew_gubskiy.svg?style=social&label=Follow%20me!)](https://twitter.com/intent/user?screen_name=andrew_gubskiy)
+
+
 The `TextHelper` class provides utility methods for common text manipulation tasks such as cleaning, substringing, replacing characters, and extracting keywords. 
 
 This library is designed to simplify text processing in .NET applications.
