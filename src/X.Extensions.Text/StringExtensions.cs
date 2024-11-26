@@ -88,6 +88,17 @@ public static class StringExtensions
     {
         return TextHelper.GetKeywords(text, count);
     }
+    
+    /// <summary>
+    /// Cut the text to the specified length, preserving the logical block
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="maxLength"></param>
+    /// <returns></returns>
+    public static string CutText(this string text, int maxLength)
+    {
+        return TextHelper.CutText(text, maxLength);
+    }
 }
 
 
