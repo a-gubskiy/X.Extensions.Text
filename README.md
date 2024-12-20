@@ -139,4 +139,4 @@ Console.WriteLine(result); // Output: "Hello!"
 Contributions to the `X.Extensions.Text` library are welcome. Please ensure to follow the contributing guidelines specified in the repository for submitting issues, feature requests, or pull requests.
 
 ## License
-The `X.Extensions.Text` library is released under [MIT license](https://raw.githubusercontent.com/ernado-x/X.Text/master/LICENSE).
+The `X.Extensions.Text` library is released under [MIT license](https://raw.githubusercontent.com/a-gubskiyX.Text/master/LICENSE).
