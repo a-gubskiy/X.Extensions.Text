@@ -8,13 +8,17 @@ using JetBrains.Annotations;
 namespace X.Extensions.Text;
 
 /// <summary>
-/// Class contains methods to simplify common tasks working with text
+/// Class contains methods to simplify common tasks working with text.
+/// Provides utility functions for substring extraction, cleaning characters,
+/// HTML-to-plain-text conversion, keyword extraction and truncation logic.
 /// </summary>
 [PublicAPI]
 public static class TextHelper
 {
     /// <summary>
-    /// 
+    /// Collection of characters and small tokens treated as "system" or separators
+    /// when cleaning or tokenizing text. Used by methods such as <see cref="CleanCharacters"/>
+    /// and <see cref="Replace(string, IEnumerable{string}, string)"/>.
     /// </summary>
     public static readonly IReadOnlyCollection<string> SystemCharacters = new[]
     {
@@ -25,23 +29,34 @@ public static class TextHelper
     };
 
     /// <summary>
-    /// Retrieves a substring from this instance. The substring starts at a first character position.
+    /// Retrieves a substring from the start of the provided text.
     /// </summary>
-    /// <param name="text">Text</param>
-    /// <param name="length">Length of new text</param>
-    /// <returns></returns>
+    /// <param name="text">The source text. If null or empty, an empty string is returned.</param>
+    /// <param name="length">The maximum length of the returned substring including any <paramref name="endPart"/>.</param>
+    /// <returns>
+    /// A substring starting at index 0. If <paramref name="text"/> is shorter than or equal to <paramref name="length"/>,
+    /// the original <paramref name="text"/> is returned. Otherwise a shortened string is returned with no trailing marker.
+    /// </returns>
     public static string Substring(string text, int length)
     {
         return Substring(text, length, string.Empty);
     }
 
     /// <summary>
-    /// Retrieves a substring from this instance. The substring starts at a first character position.
+    /// Retrieves a substring from the start of the provided text and appends an end marker if the text was truncated.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="length"></param>
-    /// <param name="endPart">Text for replace removed text. For example: 'This is long-long te...'</param>
-    /// <returns></returns>
+    /// <param name="text">The source text. If null or empty, an empty string is returned.</param>
+    /// <param name="length">
+    /// The maximum length of the returned string including the <paramref name="endPart"/>. If <paramref name="length"/> is less than
+    /// <paramref name="endPart"/>.Length this method will attempt to call <see cref="string.Substring(int, int)"/> with a negative length
+    /// and therefore may throw <see cref="ArgumentOutOfRangeException"/>. Callers should ensure <paramref name="length"/> is large enough.
+    /// </param>
+    /// <param name="endPart">Text appended to indicate truncation (for example "..." ). This is included within the requested <paramref name="length"/>.</param>
+    /// <returns>
+    /// The resulting substring. If truncation is performed the returned value will be the first (length - endPart.Length) characters followed by <paramref name="endPart"/>.
+    /// If <paramref name="text"/> fits into <paramref name="length"/>, <paramref name="text"/> is returned unchanged.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown by <see cref="string.Substring(int, int)"/> if computed length is negative.</exception>
     public static string Substring(string text, int length, string endPart)
     {
         if (string.IsNullOrEmpty(text))
@@ -58,10 +73,17 @@ public static class TextHelper
     }
         
     /// <summary>
-    /// Clean system characters
+    /// Removes or replaces common system characters and produces a URL-friendly slug.
     /// </summary>
-    /// <param name="text"></param>
-    /// <returns></returns>
+    /// <param name="text">Input text to be cleaned. If null, behavior depends on underlying methods (may throw).</param>
+    /// <returns>
+    /// A cleaned, lower-cased, trimmed string where system characters have been replaced with hyphens and
+    /// multiple consecutive spaces have been collapsed. The final result uses hyphens ('-') as separators.
+    /// </returns>
+    /// <remarks>
+    /// This method uses <see cref="SystemCharacters"/> to determine which tokens to replace with a space,
+    /// collapses doubled spaces and replaces remaining spaces with hyphens. It also lowercases the result.
+    /// </remarks>
     public static string CleanCharacters(string text)
     {
         const string space = " ";
@@ -83,21 +105,28 @@ public static class TextHelper
     /// <summary>
     /// Replaces all occurrences of the specified target strings in the input text with the provided replacement string.
     /// </summary>
-    /// <param name="text">The input string in which replacements will be made.</param>
-    /// <param name="targets">An enumerable collection of strings to be replaced.</param>
+    /// <param name="text">The input string in which replacements will be made. If null, <paramref name="targets"/>.Aggregate will throw.</param>
+    /// <param name="targets">An enumerable collection of strings to be replaced. Each target is replaced using <see cref="string.Replace(string, string)"/>.</param>
     /// <param name="replacement">The string that will replace each target string.</param>
     /// <returns>The modified string with all specified targets replaced by the replacement string.</returns>
+    /// <remarks>
+    /// Replacements are applied sequentially in the order provided by <paramref name="targets"/>.
+    /// </remarks>
     public static string Replace(string text, IEnumerable<string> targets, string replacement)
     {
         return targets.Aggregate(text, (current, x) => current.Replace(x, replacement));
     }
 
     /// <summary>
-    /// Convert HTML to plain text.
+    /// Convert HTML to plain text while preserving HTML line break tags as &lt;br /&gt; elements.
     /// </summary>
     /// <param name="text">The HTML content to be converted.</param>
-    /// <param name="preserveLineBreaks">Flag to indicate if HTML line breaks should be preserved.</param>
-    /// <returns>The plain text version of the input HTML.</returns>
+    /// <param name="preserveLineBreaks">If true, HTML line break tags (&lt;br&gt;, &lt;p&gt;, etc.) are preserved and returned as &lt;br /&gt; in the result; otherwise line breaks are removed.</param>
+    /// <returns>The plain text version of the input HTML. When <paramref name="preserveLineBreaks"/> is true, returned string will include literal &lt;br /&gt; tags where line breaks were preserved.</returns>
+    /// <remarks>
+    /// This overload temporarily replaces known line-break tags with a placeholder to prevent them from being stripped
+    /// by the general HTML-to-text conversion, then restores them as &lt;br /&gt;.
+    /// </remarks>
     public static string ToPlainText(string text, bool preserveLineBreaks)
     {
         if (!preserveLineBreaks)
@@ -135,11 +164,11 @@ public static class TextHelper
     }
     
     /// <summary>
-    /// 
+    /// Removes leading occurrences of a line break placeholder from the start of the text.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="lineBreakPlaceholder"></param>
-    /// <returns></returns>
+    /// <param name="text">Input string from which leading placeholders should be removed.</param>
+    /// <param name="lineBreakPlaceholder">Placeholder string that represents a line break. Defaults to <c>"[[LINE_BREAK]]"</c>.</param>
+    /// <returns>The input string with leading occurrences of <paramref name="lineBreakPlaceholder"/> removed. If <paramref name="text"/> is null or empty, it is returned unchanged.</returns>
     public static string TrimLineBreaksFromStart(string text, string lineBreakPlaceholder = "[[LINE_BREAK]]")
     {
         if (string.IsNullOrEmpty(text))
@@ -156,10 +185,18 @@ public static class TextHelper
     }
 
     /// <summary>
-    /// Try to convert HTML to plain text
+    /// Convert HTML content to a plain text representation by removing tags and common markup fragments.
     /// </summary>
-    /// <param name="text">Input string</param>
-    /// <returns></returns>
+    /// <param name="text">The HTML or markup input. If null, methods operating on it may throw.</param>
+    /// <returns>
+    /// A plain-text string with many HTML tags, comments and common entity tokens removed or replaced with spaces.
+    /// The returned string is trimmed of leading and trailing whitespace.
+    /// </returns>
+    /// <remarks>
+    /// The implementation uses a set of regular expressions to remove comments, titles, meta/link/style blocks,
+    /// inline styles and various markup fragments, then replaces remaining special tokens with spaces.
+    /// This method is heuristic and not a full HTML parser; it is intended for simple conversions where full fidelity is not required.
+    /// </remarks>
     public static string ToPlainText(string text)
     {
         var patternCollection = new[]
@@ -225,11 +262,18 @@ public static class TextHelper
     }
 
     /// <summary>
-    /// Get keywords from text
+    /// Extracts the most frequent keywords from the provided text.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="count"></param>
-    /// <returns></returns>
+    /// <param name="text">Input text from which to extract keywords. HTML content will be converted to plain text preserving line breaks.</param>
+    /// <param name="count">Maximum number of keywords to return ordered by frequency (descending).</param>
+    /// <returns>
+    /// A comma-separated string containing up to <paramref name="count"/> keywords. Only words longer than 4 characters are considered.
+    /// Keywords are lowercased, deduplicated and ordered by occurrence frequency.
+    /// </returns>
+    /// <remarks>
+    /// This method uses <see cref="ToPlainText(string, bool)"/> to normalize the input and <see cref="SystemCharacters"/> to remove punctuation.
+    /// Words of length 4 or less are ignored. The algorithm is simplistic and intended for basic keyword extraction.
+    /// </remarks>
     public static string GetKeywords(string text, int count)
     {
         text = ToPlainText(text, true);
@@ -259,11 +303,15 @@ public static class TextHelper
     }
     
     /// <summary>
-    /// Cut the text to the specified length, preserving the logical block
+    /// Cut the text to the specified length, attempting to preserve a logical block (sentence) boundary.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="maxLength"></param>
-    /// <returns></returns>
+    /// <param name="text">Input text to truncate. If shorter than or equal to <paramref name="maxLength"/>, it is returned unchanged.</param>
+    /// <param name="maxLength">Maximum allowed length. Default is 200 characters.</param>
+    /// <returns>
+    /// If the text length is less than or equal to <paramref name="maxLength"/>, returns the original text.
+    /// Otherwise, tries to find the last period ('.') before <paramref name="maxLength"/> and returns the text up to and including that period.
+    /// If no suitable period is found, returns a substring of length <paramref name="maxLength"/> followed by an ellipsis ("...").
+    /// </returns>
     public static string CutText(string text, int maxLength = 200)
     {
         if (text.Length <= maxLength)
