@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Title>X.Text</Title>
+        <Description>A library designed to streamline the handling of common text-related tasks.</Description>
+
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PackageIcon>x-extensions.png</PackageIcon>
+        <PackageTags>Text Transliteration Strings String Cyrillic</PackageTags>
+
+        <LangVersion>default</LangVersion>
+        <TargetFrameworks>net6.0;net8.0;net9.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../../x-extensions.png" Pack="true" PackagePath=""/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath=""/>
+        <None Include="../../LICENSE.md" Pack="true" PackagePath=""/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\X.Extensions.Text\X.Extensions.Text.csproj" />
+    </ItemGroup>
+
+</Project>
