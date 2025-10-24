@@ -228,7 +228,6 @@ public static class TextHelper
         regex = new Regex("{[^}]*}", RegexOptions.IgnoreCase);
         sb = new StringBuilder(regex.Replace(sb.ToString(), String.Empty));
 
-
         regex = new Regex("[<]", RegexOptions.IgnoreCase);
         sb = new StringBuilder(regex.Replace(sb.ToString(), "<"));
 

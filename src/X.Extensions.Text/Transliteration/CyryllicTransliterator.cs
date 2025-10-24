@@ -4,8 +4,20 @@ using JetBrains.Annotations;
 namespace X.Extensions.Text.Transliteration;
 
 /// <summary>
-/// Allows to transliterate text from cyrillic to latin and vice versa
+/// Provides bidirectional transliteration between Cyrillic and Latin scripts.
 /// </summary>
+/// <remarks>
+/// This implementation of <see cref="ITransliterator"/> maps Cyrillic graphemes to
+/// Latin sequences and vice versa. Use <see cref="ToTransliteration(string)"/> to
+/// convert Cyrillic text to its Latin transliteration, and <see cref="FromTransliteration(string)"/>
+/// to convert a Latin transliteration back to Cyrillic.
+/// </remarks>
+/// <example>
+/// var t = new CyrillicTransliterator();
+/// var latin = t.ToTransliteration("Привет"); // "Privet" (example)
+/// var cyr = t.FromTransliteration(latin);    // "Привет"
+/// </example>
+/// <seealso cref="ITransliterator"/>
 [PublicAPI]
 public class CyrillicTransliterator : ITransliterator
 {
@@ -134,7 +146,7 @@ public class CyrillicTransliterator : ITransliterator
     }
 
     /// <summary>
-    /// Converts text from latin transliteration to cyrrilic
+    /// Converts text from latin transliteration to cyrillic
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
@@ -149,7 +161,7 @@ public class CyrillicTransliterator : ITransliterator
     }
 
     /// <summary>
-    /// Converts text from cyrrilic to latin transliteration
+    /// Converts text from cyrillic to latin transliteration
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
